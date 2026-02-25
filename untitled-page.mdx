@@ -1,15 +1,90 @@
 ---
-title: "titles"
+title: "分佣"
 ---
 
-# Trade API
+# 设置分佣
 
-Our DEX API provides developers a set of APIs to identify the best quotes and execute the most efficient swap routes through our smart routing algorithm and liquidity aggregation across 500+ DEXs across Solana, EVM, SUI and more.
+OKX DEX API 支持为代币兑换，配置分佣费用和费用接收地址。
 
-It provides the critical multi-chain DEX aggregator backend for developers to build and scale trading experience within a variety of dApps such as
+您可以将分佣相关参数包含在兑换报价中，来设置并收取分佣，对多数支持的链，每笔兑换最多收取 3% 的分佣费用，而针对 Solana 链每笔兑换最多收取 10% 的分佣费用。
 
-- DEX Dashboards and Aggregators: offering users a comprehensive view of prices and liquidity across multiple decentralized exchanges for optimized trading.
-- Native Swap in Wallets: enabling wallets to incorporate built-in swap functionalities with access to the best liquidity pools.
-- Multi-chain Trading Bots: allowing automation of trading strategies such as arbitrage, liquidity mining, and asset management by leveraging high liquidity and efficient trade routing across 20+ chains.
-- DeFi Lending Platforms: supporting Defi platforms with liquidity tracking for optimized asset management and lending strategies.
-- Arbitrage Bots: providing tools and infrastructure to enable developers to perform and profit from price differences across multiple DEXs or between DEXs and CEXs.
+OKX DEX API 新增了多个 API 等级，以更好地支持我们的集成合作伙伴。详情请访问 [API 费用](../home/api-fee)页面。
+
+```json
+// Extended quoteParams with fee support
+const quoteParams = {
+    chainIndex: SOLANA_CHAIN_ID,
+    amount: rawAmount,
+    fromTokenAddress,
+    toTokenAddress,
+    slippagePercent: "0.5", // 0.5% slippagePercent
+    userWalletAddress: userAddress,
+    // 分佣相关的参数
+    fromTokenReferrerWalletAddress: "Your_REFERRER_WALLET_ADDRESS", // Optional: fee receiving address based on fromToken
+    toTokenReferrerWalletAddress: "Your_REFERRER_WALLET_ADDRESS, // Optional: fee receiving address based on toToken
+    feePercent: "1.5",  // Optional: referrer fee percentage (max 9 decimal points)
+
+} as Record<string, string>;
+```
+
+分佣参数配置说明：
+
+- 参数`feePercent`分佣比例，Solana 链最大百分比：10。其他链最大百分比：3
+- 参数`feePercent`最多支持 9 位小数，例如传入 1.3269018736%，但最终计算使用 1.326901873% 作为分佣比例。
+- 对于 Solana，收取分佣的地址必须提前存入一些 SOL 以进行激活。
+- 每笔交易只能从 fromToken 或 toToken 中选择一个作为分佣的来源。
+
+分佣配置详细示例：
+
+```json
+   // .. Previous code implementation
+   // Get swap quote
+   const quoteParams = {
+       chainIndex: SOLANA_CHAIN_ID,
+       amount: rawAmount,
+       fromTokenAddress,
+       toTokenAddress,
+       slippagePercent: "0.5", // 0.5% slippagePercent
+       userWalletAddress: userAddress,
+
+       // Additional Fee params
+       fromTokenReferrerWalletAddress: "fee-recipient-wallet-address",
+       feePercent: "1",
+
+       // The wallet addresses to receive the referrer fee (Each transaction can only choose referrer fee from either the fromToken or the toToken)
+       // toTokenReferrerWalletAddress: "Fee receiving address,
+       // fromTokenReferrerWalletAddress: "Fee receiving address",
+
+   } as Record<string, string>;
+```
+
+```json
+    const timestamp = new Date().toISOString();
+    const requestPath = "/api/v6/dex/aggregator/swap";
+    const queryString = "?" + new URLSearchParams(quoteParams).toString();
+    const headers = getHeaders(timestamp, "GET", requestPath, queryString);
+
+    const response = await fetch(
+        `https://web3.okx.com${requestPath}${queryString}`,
+        { method: "GET", headers }
+    );
+
+    const data = await response.json();
+
+    // .. Continue code implementation
+```
+
+分佣配置的命令行：
+
+```json
+# Example: Swap .01 SOL to USDC with 1.5% fee to referrer
+npx ts-node swap.ts .01 11111111111111111111111111111111 EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v --referrer YOUR_FEE_RECEIVING_ADDRESS --fee 1.5
+```
+
+计算示例的分佣费用说明：
+
+以 1.5% 的分佣比例，向 100 USDC 的交易收取分佣，设置`toTokenReferrerWalletAddress`作为分佣接收地址参数：
+
+- 分佣金额：1.5 USDC（100 USDC 的1.5%）
+- 实际用户兑换成功金额：98.5 USDC
+- 分佣（1.5 USDC）将发送到分佣接收地址
