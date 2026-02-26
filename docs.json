@@ -23,16 +23,14 @@
         }
       ]
     },
-    "tabs": [
+    "groups": [
       {
-        "tab": "Guides",
-        "pages": [
-          "dex-api-addfee"
+        "group": "API reference",
+        "openapi": "openapi.json",
+         "pages": [
+          "GET /pets"
+          
         ]
-      },
-      {
-        "tab": "API Reference",
-        "openapi": "openapi.json"
       }
     ]
   },
