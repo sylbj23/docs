@@ -9,30 +9,41 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
+    "tabs": [
+
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint examples",
+            "pages": [
+              "api-reference/endpoint/get"
+              
+            ]
+          }
+        ]
+      }
+    ],
     "global": {
       "anchors": [
         {
           "anchor": "Documentation",
-          "icon": "book-open-cover",
-          "href": "https://mintlify.com/docs"
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
         },
         {
           "anchor": "Blog",
-          "icon": "newspaper",
-          "href": "https://mintlify.com/blog"
+          "href": "https://mintlify.com/blog",
+          "icon": "newspaper"
         }
       ]
-    },
-    "groups": [
-      {
-        "group": "API reference",
-        "openapi": "openapi.json",
-         "pages": [
-          "GET /pets"
-          
-        ]
-      }
-    ]
+    }
   },
   "logo": {
     "light": "/logo/light.svg",
@@ -53,15 +64,15 @@
   },
   "contextual": {
     "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
   },
   "footer": {
     "socials": {
