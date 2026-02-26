@@ -170,6 +170,39 @@
           }
         }
       }
+    },
+    "/orders": {
+      "post": {
+        "summary": "Create an order",
+        "operationId": "createOrder",
+        "tags": ["orders"],
+        "responses": {
+          "201": {
+            "description": "Order created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "order_789"
+                    },
+                    "status": {
+                      "type": "string",
+                      "example": "created"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
