@@ -23,7 +23,8 @@
           {
             "group": "Endpoint examples",
             "pages": [
-              "api-reference/endpoint/get"
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/post"
               
             ]
           }

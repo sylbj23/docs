@@ -127,6 +127,49 @@
           }
         }
       }
+    },
+    "/pets/{petId}/vaccinations": {
+      "post": {
+        "summary": "Add a vaccination record",
+        "operationId": "addVaccination",
+        "tags": ["vaccinations"],
+        "parameters": [
+          {
+            "name": "petId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "The pet ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VaccinationInput"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Vaccination record created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Vaccination"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Pet not found"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -173,6 +216,61 @@
           "age": {
             "type": "integer",
             "example": 3
+          }
+        }
+      },
+      "VaccinationInput": {
+        "type": "object",
+        "required": ["vaccineName", "date"],
+        "properties": {
+          "vaccineName": {
+            "type": "string",
+            "example": "Rabies"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-02-26"
+          },
+          "nextDueDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2027-02-26"
+          },
+          "veterinarian": {
+            "type": "string",
+            "example": "Dr. Smith"
+          }
+        }
+      },
+      "Vaccination": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "vac456"
+          },
+          "petId": {
+            "type": "string",
+            "example": "abc123"
+          },
+          "vaccineName": {
+            "type": "string",
+            "example": "Rabies"
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "example": "2026-02-26"
+          },
+          "nextDueDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2027-02-26"
+          },
+          "veterinarian": {
+            "type": "string",
+            "example": "Dr. Smith"
           }
         }
       }
