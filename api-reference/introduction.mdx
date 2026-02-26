@@ -1,7 +1,10 @@
+---
+title: "Environment Settings"
+---
+
 # Environment Settings
 
-The following guide uses TypeScript as a reference. 
-
+The following guide uses TypeScript as a reference.
 
 ## Install the Following Libraries
 
@@ -10,20 +13,18 @@ npm install @okx-dex/okx-dex-sdk
 npm install dotenv
 ```
 
-
 ## Create .env
 
 1. You will always need your OKX API credentials. Put those in the .env file
-  
-  
+
 ```bash
 OKX_API_KEY=
 OKX_SECRET_KEY=
 OKX_API_PASSPHRASE=
 ```
 
-<Tip title="Explanation" >
-Parameter values need to be obtained from the OKX developer platform
+<Tip>
+  Parameter values need to be obtained from the OKX developer platform
 </Tip>
 
 2. Network dependencies
@@ -37,16 +38,13 @@ SOLANA_PRIVATE_KEY=
 SOLANA_RPC_URL=
 ```
 
-<Tip title="Explanation" >
-- SOLANA_RPC_URL: Paid RPC service is recommended to ensure stability.
-- It is recommended to manage private parameters (such as SOLANA_PRIVATE_KEY) through encryption.
-</Tip>
-    
-
-<Tip title="Tip"> 
-1. Use process.env to read environment variables
-2. Add .env to .gitignore to prevent sensitive information leakage
-3. When developing multiple chains, you can create environment configuration files such as .env.solana and .env.evm
+<Tip>
+  - SOLANA_RPC_URL: Paid RPC service is recommended to ensure stability.
+  - It is recommended to manage private parameters (such as SOLANA_PRIVATE_KEY) through encryption.
 </Tip>
 
-
+<Tip>
+  1. Use process.env to read environment variables
+  2. Add .env to .gitignore to prevent sensitive information leakage
+  3. When developing multiple chains, you can create environment configuration files such as .env.solana and .env.evm
+</Tip>
