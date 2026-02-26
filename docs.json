@@ -64,7 +64,7 @@
       },
       {
         "tab": "API reference",
-        "groups": [
+        "pages": [
           {
             "group": "API documentation",
             "pages": [
@@ -79,7 +79,8 @@
               "api-reference/endpoint/delete",
               "api-reference/endpoint/webhook"
             ]
-          }
+          },
+          "api"
         ]
       }
     ]

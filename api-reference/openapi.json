@@ -21,10 +21,10 @@
   "paths": {
     "/plants": {
       "get": {
-        "description": "Returns all plants from the system that the user has access to",
+        "description": "test desc",
         "parameters": [
           {
-            "name": "limit",
+            "name": "limit-test",
             "in": "query",
             "description": "The maximum number of results to return",
             "schema": {
