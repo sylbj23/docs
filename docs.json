@@ -31,15 +31,8 @@
         ]
       },
       {
-        "tab": "API reference",
-        "pages": [
-          {
-            "group": "Endpoint examples",
-            "pages": [
-              "api-reference/endpoint/get"
-            ]
-          }
-        ]
+        "tab": "API Reference",
+        "openapi": "openapi.json"
       }
     ]
   },
@@ -62,15 +55,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
